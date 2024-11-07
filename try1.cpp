@@ -34,24 +34,22 @@ cv::Point2f calculateWeightedAveragePosition(const cv::Mat& image) {
 }
 
 int main() {
-    cv::Mat image = cv::imread("test3.bmp");
+    cv::Mat image = cv::imread("test1.bmp");
 
     if (image.empty()) {
         std::cerr << "Error: Could not open or find the image!" << std::endl;
         return -1;
     }
 
+    cv::resize(image, image, cv::Size(160, 120));
     cv::Point2f weightedAvgPos = calculateWeightedAveragePosition(image);
 
     if (weightedAvgPos.x >= 0 && weightedAvgPos.y >= 0) {
-        cv::circle(image, weightedAvgPos, 5, cv::Scalar(0, 255, 0), -1); 
-        cv::line(image, cv::Point(weightedAvgPos.x - 40, weightedAvgPos.y), cv::Point(weightedAvgPos.x + 40, weightedAvgPos.y), cv::Scalar(0, 255, 0), 2);
-        cv::line(image, cv::Point(weightedAvgPos.x, weightedAvgPos.y - 40), cv::Point(weightedAvgPos.x, weightedAvgPos.y + 40), cv::Scalar(0, 255, 0), 2);
+        cv::circle(image, weightedAvgPos, 1, cv::Scalar(0, 255, 0), -1); 
+        cv::line(image, cv::Point(weightedAvgPos.x - 5, weightedAvgPos.y), cv::Point(weightedAvgPos.x + 5, weightedAvgPos.y), cv::Scalar(0, 255, 0), 2);
+        cv::line(image, cv::Point(weightedAvgPos.x, weightedAvgPos.y - 5), cv::Point(weightedAvgPos.x, weightedAvgPos.y + 5), cv::Scalar(0, 255, 0), 2);
 
-        cv::imwrite("test3-modified.bmp", image);
-        std::cout << "Marked image saved as output_image_with_marker.bmp" << std::endl;
+        cv::imwrite("output2.bmp", image);
     }
-
-
     return 0;
 }
